@@ -24,6 +24,7 @@ SECRET_KEY = 'grm@_$#@#i$*wm)ct235ln4jg1jxd$^tf&y2wyt5@s%(im)ckr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+DEBUG_MODE = False
 
 ALLOWED_HOSTS = []
 
@@ -49,6 +50,39 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+LOGGING = {
+'version': 1,
+'disable_existing_loggers': False,
+'formatters': {
+    'simple': {
+        'format': '[%(asctime)s] %(levelname)s | %(name)s | %(message)s',
+        'datefmt': '%Y-%m-%d %H:%M:%S',
+    },                  
+},
+'handlers': {
+    # 'applogfile': {
+    #     'level': 'INFO',
+    #     'class': 'logging.handlers.RotatingFileHandler',
+    #     'filename': 'C:\Final_project\PyShop\.idea\picture.log',
+    #     'backupCount': 20,
+    #     'formatter': 'simple',
+    # },
+    'example_name': {
+        'level': 'INFO',
+        'class': 'logging.StreamHandler',
+        'formatter': 'simple'
+    }
+},
+'loggers': {
+    '': {
+        'handlers': ['example_name'],
+        'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+    }
+}
+}
+
 
 ROOT_URLCONF = 'pyshop.urls'
 
@@ -121,3 +155,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT =  'static'
+
+MEDIA_ROOT = BASE_DIR + '/picture'
+MEDIA_URL = '/picture/'
